@@ -17,7 +17,7 @@ class YaTranslateAPI:
     def __init__(self, api_key):
         self._api_key = api_key
 
-    def translate_text(self, txt, from_lang, to_lang):
+    def translate(self, txt, from_lang, to_lang):
         from_lang = from_lang.lower()
         to_lang = to_lang.lower()
         req_params = {
@@ -65,7 +65,7 @@ class YaDiskAPI:
 def translate_it(trans_api, in_path, out_path, from_lang, to_lang="ru"):
     news_lang, _ = os.path.splitext(news_file)
     with open(in_path, "r") as in_file:
-        out_txt = trans_api.translate_text(in_file.read(), from_lang, to_lang)
+        out_txt = trans_api.translate(in_file.read(), from_lang, to_lang)
     with open(out_path, "w") as out_file:
         out_file.write(out_txt)
 
