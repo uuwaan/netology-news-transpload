@@ -62,6 +62,14 @@ class YaDiskAPI:
         return resp_json["href"]
 
 
+def translate_it(trans_api, in_path, out_path, from_lang, to_lang="ru"):
+    news_lang, _ = os.path.splitext(news_file)
+    with open(in_path, "r") as in_file:
+        out_txt = trans_api.translate_text(in_file.read(), from_lang, to_lang)
+    with open(out_path, "w") as out_file:
+        out_file.write(out_txt)
+
+
 if __name__ == "__main__":
     with open("trans_key.txt", "r") as api_file:
         yatran_key = api_file.readline()
@@ -73,10 +81,7 @@ if __name__ == "__main__":
         in_path = os.path.join(IN_DIR, news_file)
         out_path = os.path.join(OUT_DIR, news_file)
         news_lang, _ = os.path.splitext(news_file)
-        with open(in_path, "r") as in_file:
-            out_txt = yatran_api.translate_text(in_file.read(), news_lang)
-        with open(out_path, "w") as out_file:
-            out_file.write(out_txt)
+        translate_it(yatran_api, in_path, out_path, news_lang)
         print(MSG_TRANSLATED.format(news_file))
         yadisk_api.upload(out_path, news_file)
         print(MSG_UPLOADED.format(news_file))
