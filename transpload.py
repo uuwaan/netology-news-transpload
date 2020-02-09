@@ -17,7 +17,7 @@ class YaTranslateAPI:
     def __init__(self, api_key):
         self._api_key = api_key
 
-    def translate_text(self, txt, from_lang, to_lang="ru"):
+    def translate_text(self, txt, from_lang, to_lang):
         from_lang = from_lang.lower()
         to_lang = to_lang.lower()
         req_params = {
